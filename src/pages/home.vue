@@ -2,7 +2,15 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faGithub, faInstagram, faXTwitter } from '@fortawesome/free-brands-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
+import { useDark, useToggle } from "@vueuse/core";
 
+const isDark = useDark({
+    selector: "body",
+    attribute: "theme",
+    valueDark: "custom-dark",
+    valueLight: "custom-light"
+});
+const toggleDark = useToggle(isDark);
 library.add(faGithub, faInstagram, faXTwitter)
 
 // ///////////////////////////////////////////////////////////////////////
@@ -18,10 +26,10 @@ const deftonesporra = () => {
 
 <template>
     <header>
-        <img class="avatar" src="https://github.com/kyoshiblood.png" alt="kyoshiblood github avatar">
+        <img @click="toggleDark()" class="avatar" src="https://github.com/kyoshiblood.png" alt="kyoshiblood github avatar">
 
         <div class="presentation">
-            <h1>kyoshiblood</h1>
+            <h1>kyoshiblood {{ isDark ? '' : '(has dark mode)' }}</h1>
             <p>Hey! I'm Fernando, but you can say kyoshi <br>
                 Programming has been my area since I was a child, here you much about me.
             </p>
@@ -29,6 +37,15 @@ const deftonesporra = () => {
             <h2>THE LIFE IS UNDERRATED. <button @click="deftonesporra">🤘</button></h2>
         </div>
     </header>
+
+    <main>
+        <div>
+            <h2>About me</h2>
+            <p>As you already know, my name is Fernando, a Brazilian back-end developer. I am currently a Computer Science student at the Federal Institute of Bahia. I am currently looking for new challenges.</p>
+        </div>
+        <div></div>
+    </main>
+    
 
     <footer>
         <ul id="social">
@@ -47,13 +64,13 @@ const deftonesporra = () => {
 
             </div>
         </ul>
+
+        <div></div>
     </footer>
 </template>
 
-<style scoped>
-* {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
+<style>
+
 
 header {
     display: flex;
@@ -68,6 +85,37 @@ header {
     border-right: 0px;
 }
 
+[theme="custom-dark"] {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+[theme="custom-dark"] img {
+    border: 3px solid #ffffff
+}
+
+[theme="custom-dark"] a {
+    color: gray;
+}
+
+[theme=custom-dark] a:hover {
+    color: #fff;
+}
+
+a:hover {
+    color: gray
+}
+ 
+main {
+  display: flex;
+  justify-content: center;
+}
+
+main p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+}
+
 .avatar {
     width: 256px;
     height: 256px;
@@ -80,19 +128,27 @@ header {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    padding: 2rem;
+    padding: 1.4rem;
+}
+
+.presentation h1 {
+    font-family: 'Gill Sans', sans-serif;
+}
+
+.presentation p {
+    font-family: 'Roboto', sans-serif;
 }
 
 .presentation h2 {
     padding: 0;
+    font-family: 'Abril Fatface', sans-serif;
+    font-weight: 500;
 }
 
 #social {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 10px;
 
     list-style: none;
 }
@@ -107,7 +163,6 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
 a {
@@ -131,6 +186,12 @@ button {
         flex-direction: column;
     }
 
+    main {
+        display: block;
+        text-align: center;
+        line-height: 1.2;
+    }
+
     .presentation {
         display: flex;
         justify-content: center;
@@ -140,6 +201,7 @@ button {
     .avatar {
         width: 128px;
         height: 128px;
+        margin-bottom: -20px;
     }
 
     #social {
