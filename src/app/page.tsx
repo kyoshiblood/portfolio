@@ -19,8 +19,8 @@ export default function Home() {
   return (
     <main className="flex gap-16 items-center justify-center py-5 text-gray-100">
       <div className="flex flex-col gap-8">
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex items-center justify-center flex-col-reverse md:flex-row md:justify-between">
+          <div className="text-center md:text-start">
             <h1 className="text-6xl font-bold py-5">
               Fernando <span className="text-amber-300">Rocha</span>
             </h1>
@@ -29,18 +29,26 @@ export default function Home() {
               developer, programming enthusiast.
             </p>
 
-            <ol className="flex items-center gap-4 mt-4">
+            <ol className="flex justify-center md:justify-start items-center gap-4 mt-4">
               <li className="cursor-pointer">
-                <Image
-                  className="size-10"
-                  width={48}
-                  src={GithubIcon}
-                  alt="github icon logo"
-                />
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href="http://github.com/kyoshiblood"
+                >
+                  <Image
+                    className="size-10"
+                    width={48}
+                    src={GithubIcon}
+                    alt="github icon logo"
+                  />
+                </a>
               </li>
 
               <li className="cursor-pointer">
-                <Mail className="size-10" />
+                <a href="mailto:kyoshiblood@outlook.com">
+                  <Mail className="size-10" />
+                </a>
               </li>
             </ol>
           </div>
@@ -69,7 +77,7 @@ export default function Home() {
             href="https://kyoshiscrawl.vercel.app"
             target="_blank"
             rel="noreferrer"
-            className="text-[20px] cursor-pointer text-amber-600 hover:text-blue-400 font-semibold"
+            className="text-[20px] cursor-pointer text-amber-600 hover:text-blue-400 font-semibold sm:text-center"
           >
             See my blog.
           </a>
@@ -77,7 +85,7 @@ export default function Home() {
 
         <div>
           <h2 className="text-5xl font-bold text-amber-300 mt-5">Skills</h2>
-          <ol className="flex items-center gap-4 mt-4">
+          <ol className="flex items-center gap-4 mt-4 flex-wrap">
             {skills.map((skill) => (
               <Skills key={skill} skill={skill} />
             ))}
